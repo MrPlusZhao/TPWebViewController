@@ -121,13 +121,15 @@
 }
 - (void)loadRequest
 {
-    [self loadLocalHtmlForTest];
-    [self performSelector:@selector(ocCallJs) withObject:nil afterDelay:3.0];
-    return;
-    if (![self.requestUrl length]) {
-        return;
+    if ([self.requestUrl length]) {
+        [self.wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_requestUrl]]];
     }
-    [self.wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_requestUrl]]];
+    else{
+        // 本地测试
+        [self loadLocalHtmlForTest];
+    //    [self performSelector:@selector(ocCallJs) withObject:nil afterDelay:3.0];
+    }
+    
 }
 - (void)ocCallJs{
 
